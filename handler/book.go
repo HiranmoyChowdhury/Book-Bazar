@@ -20,7 +20,8 @@ func GetABook() *model.Book {
 	return &model.Book{}
 }
 
-func Add(memory *[]model.Book) http.HandlerFunc {
+func Add() http.HandlerFunc {
+	memory := &theBookList
 	return func(w http.ResponseWriter, r *http.Request) {
 		bookRecieved := GetABook()
 		err := json.NewDecoder(r.Body).Decode(bookRecieved)
@@ -43,7 +44,8 @@ func Add(memory *[]model.Book) http.HandlerFunc {
 	}
 }
 
-func Delete(memory *[]model.Book) http.HandlerFunc {
+func Delete() http.HandlerFunc {
+	memory := &theBookList
 	return func(w http.ResponseWriter, r *http.Request) {
 		param := chi.URLParam(r, "UUID")
 		if _, present := locationOfBook[param]; present == false {
@@ -68,7 +70,8 @@ func Delete(memory *[]model.Book) http.HandlerFunc {
 	}
 }
 
-func Get(memory *[]model.Book) http.HandlerFunc {
+func Get() http.HandlerFunc {
+	memory := &theBookList
 	return func(w http.ResponseWriter, r *http.Request) {
 		param := chi.URLParam(r, "UUID")
 		if _, present := locationOfBook[param]; present == false {
@@ -87,7 +90,8 @@ func Get(memory *[]model.Book) http.HandlerFunc {
 	}
 }
 
-func GetAll(memory *[]model.Book) http.HandlerFunc {
+func GetAll() http.HandlerFunc {
+	memory := &theBookList
 	return func(w http.ResponseWriter, r *http.Request) {
 		err := json.NewEncoder(w).Encode(*memory)
 		if err != nil {
@@ -100,7 +104,8 @@ func GetAll(memory *[]model.Book) http.HandlerFunc {
 	}
 }
 
-func Update(memory *[]model.Book) http.HandlerFunc {
+func Update() http.HandlerFunc {
+	memory := &theBookList
 	return func(w http.ResponseWriter, r *http.Request) {
 		param := chi.URLParam(r, "UUID")
 
