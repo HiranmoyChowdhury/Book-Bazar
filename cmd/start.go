@@ -4,9 +4,13 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
 	"learnProject/First-Project-With-Go/theServer"
+	"learnProject/First-Project-With-Go/utils"
 )
+
+var SetPort string
 
 // startCmd represents the start command
 var startCmd = &cobra.Command{
@@ -19,12 +23,18 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if SetPort != "" {
+			utils.SetPortNo(SetPort)
+		}
+		fmt.Println("The Server is ready at your Service...\nport no", utils.PortNo, "\n")
 		theServer.Start()
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(startCmd)
+
+	startCmd.Flags().StringVarP(&SetPort, "port", "p", "3667", "set port no")
 
 	// Here you will define your flags and configuration settings.
 

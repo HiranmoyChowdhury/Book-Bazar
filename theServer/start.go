@@ -13,7 +13,7 @@ func Start() {
 	//api.Book calls all api related to book
 	api.Book(r)
 
-	err := http.ListenAndServe(utils.GetPort(), r)
+	err := http.ListenAndServe(utils.PortNo, r)
 	if err != nil {
 		return
 	}
