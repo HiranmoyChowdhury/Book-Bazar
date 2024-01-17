@@ -7,6 +7,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/oklog/ulid/v2"
 	"learnProject/First-Project-With-Go/model"
+	"learnProject/First-Project-With-Go/utils"
 	"net/http"
 )
 
@@ -23,6 +24,11 @@ func GetABook() *model.Book {
 func Add() http.HandlerFunc {
 	memory := &theBookList
 	return func(w http.ResponseWriter, r *http.Request) {
+		if message, valid := utils.Authanticated(r); valid == false {
+			w.WriteHeader(http.StatusUnauthorized)
+			json.NewEncoder(w).Encode(model.Error{"401", "StatusUnauthorized", message})
+			return
+		}
 		bookRecieved := GetABook()
 		err := json.NewDecoder(r.Body).Decode(bookRecieved)
 		if err != nil {
@@ -47,6 +53,13 @@ func Add() http.HandlerFunc {
 func Delete() http.HandlerFunc {
 	memory := &theBookList
 	return func(w http.ResponseWriter, r *http.Request) {
+
+		if message, valid := utils.Authanticated(r); valid == false {
+			w.WriteHeader(http.StatusUnauthorized)
+			json.NewEncoder(w).Encode(model.Error{"401", "StatusUnauthorized", message})
+			return
+		}
+
 		param := chi.URLParam(r, "UUID")
 		if _, present := locationOfBook[param]; present == false {
 			json.NewEncoder(w).Encode(model.Error{"404", "Not Found", "the file is missing!"})
@@ -73,6 +86,12 @@ func Delete() http.HandlerFunc {
 func Get() http.HandlerFunc {
 	memory := &theBookList
 	return func(w http.ResponseWriter, r *http.Request) {
+
+		if message, valid := utils.Authanticated(r); valid == false {
+			w.WriteHeader(http.StatusUnauthorized)
+			json.NewEncoder(w).Encode(model.Error{"401", "StatusUnauthorized", message})
+			return
+		}
 		param := chi.URLParam(r, "UUID")
 		if _, present := locationOfBook[param]; present == false {
 			json.NewEncoder(w).Encode(model.Error{"404", "not found", "file is missing"})
@@ -93,6 +112,12 @@ func Get() http.HandlerFunc {
 func GetAll() http.HandlerFunc {
 	memory := &theBookList
 	return func(w http.ResponseWriter, r *http.Request) {
+
+		if message, valid := utils.Authanticated(r); valid == false {
+			w.WriteHeader(http.StatusUnauthorized)
+			json.NewEncoder(w).Encode(model.Error{"401", "StatusUnauthorized", message})
+			return
+		}
 		err := json.NewEncoder(w).Encode(*memory)
 		if err != nil {
 			json.NewEncoder(w).Encode(model.Error{"500", "server issue", fmt.Sprint(err)})
@@ -107,6 +132,12 @@ func GetAll() http.HandlerFunc {
 func Update() http.HandlerFunc {
 	memory := &theBookList
 	return func(w http.ResponseWriter, r *http.Request) {
+
+		if message, valid := utils.Authanticated(r); valid == false {
+			w.WriteHeader(http.StatusUnauthorized)
+			json.NewEncoder(w).Encode(model.Error{"401", "StatusUnauthorized", message})
+			return
+		}
 		param := chi.URLParam(r, "UUID")
 
 		if _, present := locationOfBook[param]; present == false {
@@ -134,28 +165,4 @@ func Update() http.HandlerFunc {
 		json.NewEncoder(w).Encode(bookInfo)
 
 	}
-}
-func IsValid(value *model.Book) bool {
-	temp := value.Name
-	if temp == "" {
-		return false
-	}
-	if len(value.AuthorList) == 0 {
-		return false
-	}
-	for _, name := range value.AuthorList {
-		if name == "" {
-			return false
-		}
-	}
-	temp = value.PublishDate
-	if temp == "" {
-		return false
-	}
-	temp = value.ISBN
-	if temp == "" {
-		return false
-	}
-	return true
-
 }
