@@ -1,11 +1,10 @@
-package the_server
+package api
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/go-chi/chi"
-	"learnProject/First-Project-With-Go/api"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -36,14 +35,14 @@ func checkResponseCode(t *testing.T, expected, actual int) {
 
 func TestStart(t *testing.T) {
 	// Create a New Server Struct
-	s := Start()
+	s := chi.NewRouter()
 
 	//http.ListenAndServe(utils.PortNo, s)
 
 	f := testModelS{"sldkfj", []string{"lkjsdf"}, "sldfj", "kljsdf"}
 	var buf bytes.Buffer
 	json.NewEncoder(&buf).Encode(f)
-	api.Book(s)
+	Book(s)
 
 	// log in
 	req, _ := http.NewRequest("GET", "/api/v1/get-token", &buf)
