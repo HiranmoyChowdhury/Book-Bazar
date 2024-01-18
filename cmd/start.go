@@ -6,7 +6,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"learnProject/First-Project-With-Go/theServer"
+	"learnProject/First-Project-With-Go/the-server"
 	"learnProject/First-Project-With-Go/utils"
 )
 
@@ -27,7 +27,7 @@ to quickly create a Cobra application.`,
 			utils.SetPortNo(SetPort)
 		}
 		fmt.Println("The Server is ready at your Service...\nport no", utils.PortNo, "\n")
-		theServer.Start()
+		the_server.Start()
 	},
 }
 

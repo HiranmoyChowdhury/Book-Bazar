@@ -1,4 +1,4 @@
-package theServer
+package the_server
 
 import (
 	"github.com/go-chi/chi"
@@ -7,14 +7,11 @@ import (
 	"net/http"
 )
 
-func Start() {
+func Start() *chi.Mux {
 	r := chi.NewRouter()
 
-	//api.Book calls all api related to book
 	api.Book(r)
 
-	err := http.ListenAndServe(utils.PortNo, r)
-	if err != nil {
-		return
-	}
+	http.ListenAndServe(utils.PortNo, r)
+	return r
 }

@@ -1,4 +1,4 @@
-package utils
+package auth_n
 
 import (
 	"learnProject/First-Project-With-Go/model"
