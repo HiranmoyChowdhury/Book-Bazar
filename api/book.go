@@ -10,7 +10,7 @@ import (
 )
 
 func Book(router *chi.Mux) {
-	router.Use(Logger)
+	router.Use(MiddleWare)
 	router.Post("/api/v1/books", handler.Add())
 	router.Get("/api/v1/books", handler.GetAll())
 	router.Get("/api/v1/books/{UUID}", handler.Get())
@@ -18,7 +18,7 @@ func Book(router *chi.Mux) {
 	router.Delete("/api/v1/books/{UUID}", handler.Delete())
 
 }
-func Logger(handler http.Handler) http.Handler {
+func MiddleWare(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 		if message, valid := utils.Authanticated(request); valid == false {
 			writer.WriteHeader(http.StatusUnauthorized)
