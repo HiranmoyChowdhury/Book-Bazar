@@ -1,4 +1,4 @@
-package model
+package auth
 
 var userInfo map[string]string = map[string]string{
 	"H":  "hi",

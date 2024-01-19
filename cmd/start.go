@@ -6,8 +6,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"learnProject/First-Project-With-Go/the-server"
-	"learnProject/First-Project-With-Go/utils"
+	"learnProject/First-Project-With-Go/server"
 )
 
 var SetPort string
@@ -23,11 +22,8 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if SetPort != "" {
-			utils.SetPortNo(SetPort)
-		}
-		fmt.Println("The Server is ready at your Service...\nport no", utils.PortNo, "\n")
-		the_server.Start()
+		fmt.Println("The Server is ready at your Service...\nport no:", SetPort, "\n")
+		server.Start(SetPort)
 	},
 }
 

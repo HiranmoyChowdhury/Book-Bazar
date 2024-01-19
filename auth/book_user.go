@@ -1,9 +1,12 @@
-package auth_z
+package auth
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/golang-jwt/jwt"
+	"learnProject/First-Project-With-Go/model"
 	"learnProject/First-Project-With-Go/utils"
+	"net/http"
 	"time"
 )
 
@@ -16,7 +19,8 @@ func CreateJwtToken(userName string) (string, error) {
 			"exp":      time.Now().Add(time.Second * 200).Unix(),
 		})
 
-	tokenString, err := token.SignedString(utils.JWTSecretKey)
+	tokenString, err := token.SignedString([]byte(utils.JWTSecretKey))
+	//fmt.Println("create token", userName, tokenString, err)
 	if err != nil {
 		return "", err
 	}
@@ -26,7 +30,7 @@ func CreateJwtToken(userName string) (string, error) {
 func VerifyToken(tokenString string, userName string) error {
 	fmt.Println(tokenString)
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		return utils.JWTSecretKey, nil
+		return []byte(utils.JWTSecretKey), nil
 	})
 	if err != nil {
 		return err
@@ -41,4 +45,16 @@ func VerifyToken(tokenString string, userName string) error {
 	}
 
 	return fmt.Errorf("Token Not Found In History")
+}
+
+func TokenValidation(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
+		userName := request.Header.Get("User")
+		if token := request.Header.Get("Token"); VerifyToken(token, userName) != nil {
+			json.NewEncoder(writer).Encode(model.Error{"401", "StatusUnauthorized", "Token is not valid"})
+			return
+		}
+		handler.ServeHTTP(writer, request)
+
+	})
 }
