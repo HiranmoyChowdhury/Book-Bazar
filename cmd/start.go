@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"learnProject/First-Project-With-Go/server"
+	"learnProject/First-Project-With-Go/utils"
 )
 
 var SetPort string
@@ -30,7 +31,7 @@ to quickly create a Cobra application.`,
 func init() {
 	rootCmd.AddCommand(startCmd)
 
-	startCmd.Flags().StringVarP(&SetPort, "port", "p", "3667", "set port no")
+	startCmd.Flags().StringVarP(&SetPort, "port", "p", utils.DefaultPortNo, "set port no")
 
 	// Here you will define your flags and configuration settings.
 
