@@ -30,8 +30,10 @@ func executeRequest(req *http.Request, s *chi.Mux) *httptest.ResponseRecorder {
 func checkResponseCode(t *testing.T, expected int, response *httptest.ResponseRecorder, testBody testModelS) {
 
 	bookRecieved := handler.GetABook()
-	json.NewDecoder(response.Body).Decode(bookRecieved)
-	if response.Code != expected {
+	err := json.NewDecoder(response.Body).Decode(bookRecieved)
+	if err != nil {
+		t.Errorf("body format is not valid")
+	} else if response.Code != expected {
 		t.Errorf("Expected response code %d. Got %d\n", expected, response.Code)
 	} else if bookRecieved.Name != testBody.Name {
 		t.Errorf("error in name")
@@ -52,7 +54,7 @@ func checkResponseCode(t *testing.T, expected int, response *httptest.ResponseRe
 
 }
 
-func TestStart(t *testing.T) {
+func TestAdd(t *testing.T) {
 	// Create a New Server Struct
 	s := chi.NewRouter()
 	Book(s)
