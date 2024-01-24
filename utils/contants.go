@@ -1,4 +1,4 @@
 package utils
 
 const JWTSecretKey = "SecretKey=*whatever*36"
-const DefaultPortNo = "3667"
+const DefaultPortNo = "8080"
