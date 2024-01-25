@@ -6,11 +6,14 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
+	"learnProject/First-Project-With-Go/auth"
 	"learnProject/First-Project-With-Go/server"
 	"learnProject/First-Project-With-Go/utils"
 )
 
 var SetPort string
+var UserName string
+var Password string
 
 // startCmd represents the start command
 var startCmd = &cobra.Command{
@@ -24,6 +27,7 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("The Server is ready at your Service...\nport no:", SetPort, "\n")
+		auth.SetUserInfo(UserName, Password)
 		server.Start(SetPort)
 	},
 }
@@ -31,7 +35,9 @@ to quickly create a Cobra application.`,
 func init() {
 	rootCmd.AddCommand(startCmd)
 
-	startCmd.Flags().StringVarP(&SetPort, "port", "p", utils.DefaultPortNo, "set port no")
+	startCmd.Flags().StringVarP(&SetPort, "port", "d", utils.DefaultPortNo, "set port no")
+	startCmd.Flags().StringVarP(&UserName, "user name", "u", "h", "set the user name")
+	startCmd.Flags().StringVarP(&Password, "password", "p", "hi", "set password")
 
 	// Here you will define your flags and configuration settings.
 

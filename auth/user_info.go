@@ -12,3 +12,6 @@ func UserNameMatchPass(name string, pass string) bool {
 	}
 	return false
 }
+func SetUserInfo(name string, pass string) {
+	userInfo[name] = pass
+}
