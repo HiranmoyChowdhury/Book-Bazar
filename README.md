@@ -34,11 +34,13 @@ docker build -t book-server-api .
 ```
 docker run -dp 127.0.0.1:8080:8080 book-server-api start
 ```
-Here start is the command which actually give the instructions to start the server. This server is running with a default port 8080. You can change it during running the server.
-Example: 
+Here start is the command that actually instructs the server to start. This server is running with a default port of 8080 You can change this while running the server:
 ```
 docker run -dp 127.0.0.1:<desired port>:<desired port> book-server-api start -d=<desired port>
 ```
-You can also register by giving **admin name** and **password** which can be useful if you don't want to use the default **admin name** and **password**.
+You can register with an **admin name** and **password** which can be useful if you don't want to use the default **admin name** and **password** during the login process:
 
+```
+docker run -dp 127.0.0.1:<desired port>:<desired port> book-server-api start -d=<desired port> -u=<user name> -p=<password>
+```
 
