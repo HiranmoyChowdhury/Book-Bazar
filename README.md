@@ -21,26 +21,44 @@ export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 $ source ~/.bashrc
 $ go version
 ```
-## Run using docker
-**Clone the project:** First clone the project using this command to your desired directory:
+## Clone the project
+First clone the project using this command to your desired directory:
 ```
 git clone https://github.com/HiranmoyChowdhury/Book-Bazar/tree/master
 ```
-**Building Image:** Run the Following command to build the image:
+## Run using docker
+**Building Image:** Run the Following command to build the image from project directory:
 ```
-docker build -t book-server-api .
+docker build -t book-bazar .
 ```
 **Running Container:** Run the Following command to run this image in container:
 ```
-docker run -dp 127.0.0.1:8080:8080 book-server-api start
+docker run -dp 127.0.0.1:8080:8080 book-bazar start
 ```
 Here start is the command that actually instructs the server to start. This server is running with a default port of 8080 You can change this while running the server:
 ```
-docker run -dp 127.0.0.1:<desired port>:<desired port> book-server-api start -d=<desired port>
+docker run -dp 127.0.0.1:<desired port>:<desired port> book-bazar start -d=<desired port>
 ```
 You can register with an **admin name** and **password** which can be useful if you don't want to use the default **admin name** and **password** during the login process:
 
 ```
-docker run -dp 127.0.0.1:<desired port>:<desired port> book-server-api start -d=<desired port> -u=<user name> -p=<password>
+docker run -dp 127.0.0.1:<desired port>:<desired port> book-bazar start -d=<desired port> -u=<user name> -p=<password>
 ```
+## Run on local machine
+**Building an executable file:** Run the Following command to build *executable file* from project directory:
+```
+go build -o book-bazar
+```
+**Running the executable file:** Run the Following command to run this executable file in your local system:
+```
+book-bazar start
+```
+Here start is the command that actually instructs the server to start. This server is running with a default port of 8080 You can change this while running the server:
+```
+book-bazar start -d=<desired port>
+```
+You can register with an **admin name** and **password** which can be useful if you don't want to use the default **admin name** and **password** during the login process:
 
+```
+book-bazar start -d=<desired port> -u=<user name> -p=<password>
+```
