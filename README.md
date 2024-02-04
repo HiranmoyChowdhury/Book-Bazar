@@ -65,7 +65,7 @@ book-bazar start -d=<desired port> -u=<user name> -p=<password>
 # API EndPoints
 | API EndPoint | Authentication Type | Description | Curl Command |
 | ------------- | ------------------ | ----------------------- | ----------------- |
-| /api/v1/get-token | Basic-Auth | LogIn with registered user,pass and get bearer token | $ curl -X POST --user  '<userName>:<passWord>' localhost:<port no>/api/v1/get-token |
+| /api/v1/get-token | Basic-Auth | LogIn with registered user,pass and get bearer token | $ curl -X POST --user  '\<userName\>:\<passWord\>' localhost:\<port no\>/api/v1/get-token |
 
 
 
