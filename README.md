@@ -30,11 +30,15 @@ git clone https://github.com/HiranmoyChowdhury/Book-Bazar/tree/master
 ```
 docker build -t book-server-api .
 ```
-**Running Container:** Run the Following command:
+**Running Container:** Run the Following command to run this image in container:
 ```
-docker run -dp 127.0.0.1:3000:3000 book-server-api
+docker run -dp 127.0.0.1:8080:8080 book-server-api start
 ```
-
-
+Here start is the command which actually give the instructions to start the server. This server is running with a default port 8080. You can change it during running the server.
+Example: 
+```
+docker run -dp 127.0.0.1:<desired port>:<desired port> book-server-api start -d=<desired port>
+```
+You can also register by giving **admin name** and **password** which can be useful if you don't want to use the default **admin name** and **password**.
 
 
