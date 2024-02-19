@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: book-bazar
+  labels:
+    app: book-bazar
+spec:
+  selector:
+    matchLabels:
+      app: book-bazar
+  serviceName: "book-bazar"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: book-bazar
+    spec:
+      containers:
+      - name: book-bazar
+        image: hiranmoy36/book-bazar
+        imagePullPolicy: Always
+        command: ["/root/binary","start"]
+        ports:
+        - containerPort: 8080
+          name: book-bazar
+        volumeMounts:
+        - name: www
+          mountPath: /hironmoy
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      storageClassName: standard
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: book-bazar
+  labels:
+    app: book-bazar
+spec:
+  selector:
+    matchLabels:
+      app: book-bazar
+  template:
+    metadata:
+      labels:
+        app: book-bazar
+    spec:
+      containers:
+      - name: book-bazar
+        image: hiranmoy36/book-bazar
+        imagePullPolicy: Always
+        command: ["/root/binary","start"]
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
