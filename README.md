@@ -63,9 +63,15 @@ You can register with an **admin name** and **password** which can be useful if 
 book-bazar start -d=<desired port> -u=<user name> -p=<password>
 ```
 # API EndPoints
-| API EndPoint | Authentication Type | Description | Curl Command |
-| ------------- | ------------------ | ----------------------- | ----------------- |
-| /api/v1/get-token | Basic-Auth | LogIn with registered user,pass and get bearer token | $ curl -X POST --user  '\<userName\>:\<passWord\>' localhost:\<port no\>/api/v1/get-token |
+| Method | API EndPoint | Authentication Type | Description | Curl Command |
+| ------------- | ------------- | ------------------ | ----------------------- | ----------------- |
+| GET | /api/v1/get-token | Basic-Auth | LogIn with registered user,pass and get bearer token | $ curl -X POST --user  '\<userName\>:\<passWord\>' localhost:\<port no\>/api/v1/get-token |
+| POST | /api/v1/book | JWT-Auth | Add a new book | $ curl -X POST -H "Authorization: Bearer \<bearerToken\>" -H "Content-Type:application/json" -d '<bookModelJson>' localhost:\<port no\>/api/v1/book |
+| GET | /api/v1/books | JWT-Auth | Get the list of books in response | $ curl -X GET -H "Authorization: Bearer \<bearerToken\>" http://localhost:\<port no\>/api/v1/books |
+| GET | /api/v1/book/{UUID} | JWT-Auth | Get a certain book with it's UUID | $ curl -X GET -H "Authorization: Bearer <bearerToken>" localhost:\<port no\>/api/v1/book/<UUID> |
+| PUT | /api/v1/book/{UUID} | JWT-Auth | Update a certain book with it's UUID | $ curl -X PUT -H "Authorization: Bearer <bearerToken>" -H "Content-Type:application/json" -d '<bookModelJson>' localhost:\<port no\>/api/v1/book/\<UUID\> |
+| DELETE | /api/v1/book/{UUID} | JWT-Auth | Delete a certain book with it's UUIT | $ curl -X DELETE -H "Authorization: Bearer <bearerToken>" localhost:\<port no\>/api/v1/book/\<UUID\> |
+
 
 
 
