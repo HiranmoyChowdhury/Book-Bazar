@@ -62,7 +62,14 @@ You can register with an **admin name** and **password** which can be useful if 
 ```
 book-bazar start -d=<desired port> -u=<user name> -p=<password>
 ```
-# Model
+## Deploy in K8s Cluster:
+### Daemonset:
+To deploy using Daemonset object you can use [this yaml files](https://github.com/HiranmoyChowdhury/Book-Bazar/tree/master/kubernetes/Daemonset).
+### Deployment:
+To deploy using Deployment object you can use [this yaml files](https://github.com/HiranmoyChowdhury/Book-Bazar/tree/master/kubernetes/deployment).
+### StatefulSet:
+To deploy using StatefulSet object you can use [this yaml files](https://github.com/HiranmoyChowdhury/Book-Bazar/tree/master/kubernetes/statefulset).
+## Model
 ### Book model:
 ```
 UUID        string   `json:"uuid"`
