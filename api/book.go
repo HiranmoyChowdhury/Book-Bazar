@@ -17,7 +17,7 @@ func Book(router *chi.Mux) {
 		router.Delete("/api/v1/book/{UUID}", handler.Delete())
 	})
 	router.Group(func(router chi.Router) {
-		router.Get("/api/v1/get-token", auth.GetToken())
+		router.Post("/api/v1/get-token", auth.GetToken())
 	})
 
 }
