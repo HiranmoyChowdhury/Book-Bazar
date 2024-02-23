@@ -87,7 +87,7 @@ Message    string `json:"message"`
 # API EndPoints
 | Method | API EndPoint | Authentication Type | Description | Curl Command |
 | ------------- | ------------- | ------------------ | ----------------------- | ----------------- |
-| GET | /api/v1/get-token | Basic-Auth | LogIn with registered user,pass and get bearer token | ``` curl -X POST --user  '\<userName\>:\<passWord\>' localhost:\<port no\>/api/v1/get-token ``` |
+| POST | /api/v1/get-token | Basic-Auth | LogIn with registered user,pass and get bearer token | ``` curl -X POST --user  '\<userName\>:\<passWord\>' localhost:\<port no\>/api/v1/get-token ``` |
 | POST | /api/v1/book | JWT-Auth | Add a new book and in response get the full info of this book including UUID | ``` curl -X POST -H "Authorization: Token \<bearerToken\>" -H "Content-Type:application/json" -d '<bookModelJson>' localhost:\<port no\>/api/v1/book ``` |
 | GET | /api/v1/books | JWT-Auth | Get the list of books in response | ``` curl -X GET -H "Authorization: Token \<bearerToken\>" localhost:\<port no\>/api/v1/books ``` |
 | GET | /api/v1/book/{UUID} | JWT-Auth | Get a certain book with it's UUID | ``` curl -X GET -H "Authorization: Token \<bearerToken\>" localhost:\<port no\>/api/v1/book/\<UUID\> ``` |
